@@ -22,12 +22,12 @@
 
 | Role | Name | Enrollment No. | GitHub Username |
 |------|------|----------------|-----------------|
-| Group Lead | | | |
-| Member 2 | | | |
-| Member 3 | | | |
-| Member 4 | | | |
+| Group Lead | Aryan Mudgal | 2501010096 | aryanm25096-dotcom |
+| Member 2 | Kanika Prajapati | 2501010211 | kanikaa30 |
+| Member 3 | Dia Chowdhary | 2501010598 | diachowdhary |
+| Member 4 | Ayesha Khan | 2501010108 | ayesha-khan27 |
 
-**Team No.:** ____ · **Section:** ____ · **Repository URL:** ____
+**Team No.:** T0125 · **Section:** ____ · **Repository URL:** https://github.com/aryanm25096-dotcom/DE_Project_2026
 
 ---
 

@@ -1,26 +1,26 @@
 {
-  "team_number": "<FILL_TEAM_NUMBER>",
+  "team_number": "T0125",
   "group_lead": {
     "name": "Aryan Mudgal",
-    "enrollment_no": "<FILL_YOUR_ENROLLMENT_NO>",
+    "enrollment_no": "2501010096",
     "github": "aryanm25096-dotcom",
     "email": "aryan.m25096@nst.rishihood.edu.in"
   },
   "members": [
     {
-      "name": "<MEMBER_2_NAME>",
-      "enrollment_no": "<MEMBER_2_ENROLLMENT_NO>",
-      "github": "<MEMBER_2_GITHUB_USERNAME>"
+      "name": "Kanika Prajapati",
+      "enrollment_no": "2501010211",
+      "github": "kanikaa30"
     },
     {
-      "name": "<MEMBER_3_NAME>",
-      "enrollment_no": "<MEMBER_3_ENROLLMENT_NO>",
-      "github": "<MEMBER_3_GITHUB_USERNAME>"
+      "name": "Dia Chowdhary",
+      "enrollment_no": "2501010598",
+      "github": "diachowdhary"
     },
     {
-      "name": "<MEMBER_4_NAME>",
-      "enrollment_no": "<MEMBER_4_ENROLLMENT_NO>",
-      "github": "<MEMBER_4_GITHUB_USERNAME>"
+      "name": "Ayesha Khan",
+      "enrollment_no": "2501010108",
+      "github": "ayesha-khan27"
     }
   ],
   "postgres_version": "18.0",

@@ -1,0 +1,111 @@
+=== R07 run 1 ===
+Gather Merge  (cost=6424.21..6425.12 rows=8 width=29) (actual time=5.968..6.604 rows=9.00 loops=1)
+  Workers Planned: 1
+  Workers Launched: 1
+  Buffers: shared hit=2329
+  ->  Sort  (cost=5424.20..5424.21 rows=5 width=29) (actual time=5.031..5.031 rows=4.50 loops=2)
+        Sort Key: ((f.follower_id IS NOT NULL)) DESC, l.created_at DESC
+        Sort Method: quicksort  Memory: 25kB
+        Buffers: shared hit=2329
+        Worker 0:  Sort Method: quicksort  Memory: 25kB
+        ->  Merge Left Join  (cost=5401.90..5424.14 rows=5 width=29) (actual time=5.021..5.022 rows=4.50 loops=2)
+              Merge Cond: (l.user_id = f.followee_id)
+              Buffers: shared hit=2313
+              ->  Sort  (cost=5401.48..5401.49 rows=5 width=28) (actual time=4.603..4.603 rows=4.50 loops=2)
+                    Sort Key: l.user_id
+                    Sort Method: quicksort  Memory: 25kB
+                    Buffers: shared hit=2304
+                    Worker 0:  Sort Method: quicksort  Memory: 25kB
+                    ->  Nested Loop  (cost=0.29..5401.42 rows=5 width=28) (actual time=0.491..4.598 rows=4.50 loops=2)
+                          Buffers: shared hit=2300
+                          ->  Parallel Seq Scan on likes l  (cost=0.00..5359.90 rows=5 width=12) (actual time=0.484..4.577 rows=4.50 loops=2)
+                                Filter: (post_id = 59689)
+                                Rows Removed by Filter: 209972
+                                Buffers: shared hit=2272
+                          ->  Index Scan using users_pkey on users u  (cost=0.29..8.30 rows=1 width=20) (actual time=0.004..0.004 rows=1.00 loops=9)
+                                Index Cond: (user_id = l.user_id)
+                                Index Searches: 9
+                                Buffers: shared hit=28
+              ->  Index Scan using follows_pkey on follows f  (cost=0.42..22.60 rows=9 width=8) (actual time=0.015..0.016 rows=14.00 loops=2)
+                    Index Cond: (follower_id = 1042)
+                    Filter: ((status)::text = 'ACCEPTED'::text)
+                    Index Searches: 2
+                    Buffers: shared hit=9
+Planning:
+  Buffers: shared hit=303
+Planning Time: 0.564 ms
+Execution Time: 6.644 ms
+=== R07 run 2 ===
+Gather Merge  (cost=6424.21..6425.12 rows=8 width=29) (actual time=5.538..6.165 rows=9.00 loops=1)
+  Workers Planned: 1
+  Workers Launched: 1
+  Buffers: shared hit=2329
+  ->  Sort  (cost=5424.20..5424.21 rows=5 width=29) (actual time=4.624..4.624 rows=4.50 loops=2)
+        Sort Key: ((f.follower_id IS NOT NULL)) DESC, l.created_at DESC
+        Sort Method: quicksort  Memory: 25kB
+        Buffers: shared hit=2329
+        Worker 0:  Sort Method: quicksort  Memory: 25kB
+        ->  Merge Left Join  (cost=5401.90..5424.14 rows=5 width=29) (actual time=4.614..4.616 rows=4.50 loops=2)
+              Merge Cond: (l.user_id = f.followee_id)
+              Buffers: shared hit=2313
+              ->  Sort  (cost=5401.48..5401.49 rows=5 width=28) (actual time=4.592..4.592 rows=4.50 loops=2)
+                    Sort Key: l.user_id
+                    Sort Method: quicksort  Memory: 25kB
+                    Buffers: shared hit=2304
+                    Worker 0:  Sort Method: quicksort  Memory: 25kB
+                    ->  Nested Loop  (cost=0.29..5401.42 rows=5 width=28) (actual time=0.522..4.587 rows=4.50 loops=2)
+                          Buffers: shared hit=2300
+                          ->  Parallel Seq Scan on likes l  (cost=0.00..5359.90 rows=5 width=12) (actual time=0.515..4.565 rows=4.50 loops=2)
+                                Filter: (post_id = 59689)
+                                Rows Removed by Filter: 209972
+                                Buffers: shared hit=2272
+                          ->  Index Scan using users_pkey on users u  (cost=0.29..8.30 rows=1 width=20) (actual time=0.004..0.004 rows=1.00 loops=9)
+                                Index Cond: (user_id = l.user_id)
+                                Index Searches: 9
+                                Buffers: shared hit=28
+              ->  Index Scan using follows_pkey on follows f  (cost=0.42..22.60 rows=9 width=8) (actual time=0.016..0.017 rows=14.00 loops=2)
+                    Index Cond: (follower_id = 1042)
+                    Filter: ((status)::text = 'ACCEPTED'::text)
+                    Index Searches: 2
+                    Buffers: shared hit=9
+Planning:
+  Buffers: shared hit=303
+Planning Time: 0.447 ms
+Execution Time: 6.197 ms
+=== R07 run 3 ===
+Gather Merge  (cost=6424.21..6425.12 rows=8 width=29) (actual time=5.639..6.322 rows=9.00 loops=1)
+  Workers Planned: 1
+  Workers Launched: 1
+  Buffers: shared hit=2329
+  ->  Sort  (cost=5424.20..5424.21 rows=5 width=29) (actual time=4.790..4.791 rows=4.50 loops=2)
+        Sort Key: ((f.follower_id IS NOT NULL)) DESC, l.created_at DESC
+        Sort Method: quicksort  Memory: 25kB
+        Buffers: shared hit=2329
+        Worker 0:  Sort Method: quicksort  Memory: 25kB
+        ->  Merge Left Join  (cost=5401.90..5424.14 rows=5 width=29) (actual time=4.780..4.782 rows=4.50 loops=2)
+              Merge Cond: (l.user_id = f.followee_id)
+              Buffers: shared hit=2313
+              ->  Sort  (cost=5401.48..5401.49 rows=5 width=28) (actual time=4.762..4.763 rows=4.50 loops=2)
+                    Sort Key: l.user_id
+                    Sort Method: quicksort  Memory: 25kB
+                    Buffers: shared hit=2304
+                    Worker 0:  Sort Method: quicksort  Memory: 25kB
+                    ->  Nested Loop  (cost=0.29..5401.42 rows=5 width=28) (actual time=0.961..4.758 rows=4.50 loops=2)
+                          Buffers: shared hit=2300
+                          ->  Parallel Seq Scan on likes l  (cost=0.00..5359.90 rows=5 width=12) (actual time=0.952..4.734 rows=4.50 loops=2)
+                                Filter: (post_id = 59689)
+                                Rows Removed by Filter: 209972
+                                Buffers: shared hit=2272
+                          ->  Index Scan using users_pkey on users u  (cost=0.29..8.30 rows=1 width=20) (actual time=0.005..0.005 rows=1.00 loops=9)
+                                Index Cond: (user_id = l.user_id)
+                                Index Searches: 9
+                                Buffers: shared hit=28
+              ->  Index Scan using follows_pkey on follows f  (cost=0.42..22.60 rows=9 width=8) (actual time=0.013..0.014 rows=14.00 loops=2)
+                    Index Cond: (follower_id = 1042)
+                    Filter: ((status)::text = 'ACCEPTED'::text)
+                    Index Searches: 2
+                    Buffers: shared hit=9
+Planning:
+  Buffers: shared hit=303
+Planning Time: 0.453 ms
+Execution Time: 6.352 ms

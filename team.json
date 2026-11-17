@@ -1,0 +1,28 @@
+{
+  "team_number": "T0125",
+  "group_lead": {
+    "name": "Aryan Mudgal",
+    "enrollment_no": "2501010096",
+    "github": "aryanm25096-dotcom",
+    "email": "aryan.m25096@nst.rishihood.edu.in"
+  },
+  "members": [
+    {
+      "name": "Kanika Prajapati",
+      "enrollment_no": "2501010211",
+      "github": "kanikaa30"
+    },
+    {
+      "name": "Dia Chowdhary",
+      "enrollment_no": "2501010598",
+      "github": "diachowdhary"
+    },
+    {
+      "name": "Ayesha Khan",
+      "enrollment_no": "2501010108",
+      "github": "ayesha-khan27"
+    }
+  ],
+  "postgres_version": "18.0",
+  "laptop_used_for_benchmarks": "Apple Silicon Mac (macOS)"
+}

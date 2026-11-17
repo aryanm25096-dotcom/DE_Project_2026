@@ -1,0 +1,54 @@
+=== R14 run 1 ===
+Merge Anti Join  (cost=0.84..4819.87 rows=11 width=4) (actual time=0.049..2.283 rows=81.00 loops=1)
+  Merge Cond: (f.follower_id = b.followee_id)
+  Buffers: shared hit=792
+  ->  Index Scan using follows_pkey on follows f  (cost=0.42..4811.23 rows=11 width=4) (actual time=0.046..2.277 rows=81.00 loops=1)
+        Index Cond: (followee_id = 217)
+        Filter: ((status)::text = 'ACCEPTED'::text)
+        Index Searches: 1
+        Buffers: shared hit=788
+  ->  Index Only Scan using follows_pkey on follows b  (cost=0.42..8.58 rows=9 width=4) (actual time=0.001..0.002 rows=5.00 loops=1)
+        Index Cond: (follower_id = 217)
+        Heap Fetches: 0
+        Index Searches: 1
+        Buffers: shared hit=4
+Planning:
+  Buffers: shared hit=104
+Planning Time: 0.223 ms
+Execution Time: 2.306 ms
+=== R14 run 2 ===
+Merge Anti Join  (cost=0.84..4819.87 rows=11 width=4) (actual time=0.050..2.446 rows=81.00 loops=1)
+  Merge Cond: (f.follower_id = b.followee_id)
+  Buffers: shared hit=792
+  ->  Index Scan using follows_pkey on follows f  (cost=0.42..4811.23 rows=11 width=4) (actual time=0.047..2.438 rows=81.00 loops=1)
+        Index Cond: (followee_id = 217)
+        Filter: ((status)::text = 'ACCEPTED'::text)
+        Index Searches: 1
+        Buffers: shared hit=788
+  ->  Index Only Scan using follows_pkey on follows b  (cost=0.42..8.58 rows=9 width=4) (actual time=0.001..0.002 rows=5.00 loops=1)
+        Index Cond: (follower_id = 217)
+        Heap Fetches: 0
+        Index Searches: 1
+        Buffers: shared hit=4
+Planning:
+  Buffers: shared hit=104
+Planning Time: 0.222 ms
+Execution Time: 2.469 ms
+=== R14 run 3 ===
+Merge Anti Join  (cost=0.84..4819.87 rows=11 width=4) (actual time=0.046..2.322 rows=81.00 loops=1)
+  Merge Cond: (f.follower_id = b.followee_id)
+  Buffers: shared hit=792
+  ->  Index Scan using follows_pkey on follows f  (cost=0.42..4811.23 rows=11 width=4) (actual time=0.043..2.314 rows=81.00 loops=1)
+        Index Cond: (followee_id = 217)
+        Filter: ((status)::text = 'ACCEPTED'::text)
+        Index Searches: 1
+        Buffers: shared hit=788
+  ->  Index Only Scan using follows_pkey on follows b  (cost=0.42..8.58 rows=9 width=4) (actual time=0.001..0.001 rows=5.00 loops=1)
+        Index Cond: (follower_id = 217)
+        Heap Fetches: 0
+        Index Searches: 1
+        Buffers: shared hit=4
+Planning:
+  Buffers: shared hit=104
+Planning Time: 0.209 ms
+Execution Time: 2.342 ms

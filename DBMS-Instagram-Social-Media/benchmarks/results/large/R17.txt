@@ -1,0 +1,132 @@
+=== R17 run 1 ===
+Limit  (cost=22484.16..22841.94 rows=50 width=18) (actual time=18.058..19.675 rows=50.00 loops=1)
+  Buffers: shared hit=999 read=5201
+  ->  Nested Loop  (cost=22484.16..31077.88 rows=1201 width=18) (actual time=18.057..19.671 rows=50.00 loops=1)
+        Buffers: shared hit=999 read=5201
+        ->  Gather Merge  (cost=22483.74..23875.51 rows=11950 width=12) (actual time=18.030..19.240 rows=137.00 loops=1)
+              Workers Planned: 2
+              Workers Launched: 2
+              Buffers: shared hit=721 read=5067
+              ->  Sort  (cost=21483.71..21496.16 rows=4979 width=12) (actual time=16.110..16.145 rows=1103.33 loops=3)
+                    Sort Key: p.like_count DESC
+                    Sort Method: quicksort  Memory: 348kB
+                    Buffers: shared hit=721 read=5067
+                    Worker 0:  Sort Method: quicksort  Memory: 339kB
+                    Worker 1:  Sort Method: quicksort  Memory: 338kB
+                    ->  Parallel Hash Join  (cost=4811.20..21177.96 rows=4979 width=12) (actual time=7.204..15.774 rows=4775.67 loops=3)
+                          Hash Cond: (p.user_id = u.user_id)
+                          Buffers: shared hit=707 read=5067
+                          ->  Parallel Bitmap Heap Scan on posts p  (cost=3044.05..19280.67 rows=49578 width=12) (actual time=5.410..10.080 rows=39692.67 loops=3)
+                                Recheck Cond: ((created_at >= '2026-01-01 00:00:00+05:30'::timestamp with time zone) AND (created_at < '2027-01-01 00:00:00+05:30'::timestamp with time zone) AND ((post_type)::text = 'REEL'::text))
+                                Heap Blocks: exact=1772
+                                Buffers: shared hit=704 read=4901
+                                Worker 0:  Heap Blocks: exact=1677
+                                Worker 1:  Heap Blocks: exact=1656
+                                ->  Bitmap Index Scan on idx_posts_reels_2026  (cost=0.00..3014.30 rows=118988 width=0) (actual time=4.992..4.992 rows=119078.00 loops=1)
+                                      Index Cond: ((created_at >= '2026-01-01 00:00:00+05:30'::timestamp with time zone) AND (created_at < '2027-01-01 00:00:00+05:30'::timestamp with time zone))
+                                      Index Searches: 1
+                                      Buffers: shared hit=1 read=459
+                          ->  Parallel Hash  (cost=1324.06..1324.06 rows=35447 width=4) (actual time=1.699..1.700 rows=20083.67 loops=3)
+                                Buckets: 65536  Batches: 1  Memory Usage: 2944kB
+                                Buffers: shared hit=3 read=166
+                                ->  Parallel Index Only Scan using idx_users_creators on users u  (cost=0.29..1324.06 rows=35447 width=4) (actual time=0.040..0.832 rows=20083.67 loops=3)
+                                      Heap Fetches: 0
+                                      Index Searches: 1
+                                      Buffers: shared hit=3 read=166
+        ->  Index Only Scan using idx_post_media_first_duration on post_media pm  (cost=0.43..0.60 rows=1 width=10) (actual time=0.003..0.003 rows=0.36 loops=137)
+              Index Cond: ((post_id = p.post_id) AND (duration_sec > '60'::numeric))
+              Heap Fetches: 0
+              Index Searches: 137
+              Buffers: shared hit=278 read=134
+Planning:
+  Buffers: shared hit=392 read=27
+Planning Time: 3.703 ms
+Execution Time: 19.709 ms
+=== R17 run 2 ===
+Limit  (cost=22484.16..22841.94 rows=50 width=18) (actual time=12.653..14.331 rows=50.00 loops=1)
+  Buffers: shared hit=6197 read=41
+  ->  Nested Loop  (cost=22484.16..31077.88 rows=1201 width=18) (actual time=12.653..14.328 rows=50.00 loops=1)
+        Buffers: shared hit=6197 read=41
+        ->  Gather Merge  (cost=22483.74..23875.51 rows=11950 width=12) (actual time=12.631..13.982 rows=150.00 loops=1)
+              Workers Planned: 2
+              Workers Launched: 2
+              Buffers: shared hit=5787
+              ->  Sort  (cost=21483.71..21496.16 rows=4979 width=12) (actual time=11.192..11.226 rows=1103.33 loops=3)
+                    Sort Key: p.like_count DESC
+                    Sort Method: quicksort  Memory: 343kB
+                    Buffers: shared hit=5787
+                    Worker 0:  Sort Method: quicksort  Memory: 342kB
+                    Worker 1:  Sort Method: quicksort  Memory: 340kB
+                    ->  Parallel Hash Join  (cost=4811.20..21177.96 rows=4979 width=12) (actual time=4.216..10.924 rows=4775.67 loops=3)
+                          Hash Cond: (p.user_id = u.user_id)
+                          Buffers: shared hit=5773
+                          ->  Parallel Bitmap Heap Scan on posts p  (cost=3044.05..19280.67 rows=49578 width=12) (actual time=2.546..6.411 rows=39692.67 loops=3)
+                                Recheck Cond: ((created_at >= '2026-01-01 00:00:00+05:30'::timestamp with time zone) AND (created_at < '2027-01-01 00:00:00+05:30'::timestamp with time zone) AND ((post_type)::text = 'REEL'::text))
+                                Heap Blocks: exact=1746
+                                Buffers: shared hit=5604
+                                Worker 0:  Heap Blocks: exact=1692
+                                Worker 1:  Heap Blocks: exact=1667
+                                ->  Bitmap Index Scan on idx_posts_reels_2026  (cost=0.00..3014.30 rows=118988 width=0) (actual time=2.180..2.180 rows=119078.00 loops=1)
+                                      Index Cond: ((created_at >= '2026-01-01 00:00:00+05:30'::timestamp with time zone) AND (created_at < '2027-01-01 00:00:00+05:30'::timestamp with time zone))
+                                      Index Searches: 1
+                                      Buffers: shared hit=459
+                          ->  Parallel Hash  (cost=1324.06..1324.06 rows=35447 width=4) (actual time=1.634..1.634 rows=20083.67 loops=3)
+                                Buckets: 65536  Batches: 1  Memory Usage: 2912kB
+                                Buffers: shared hit=169
+                                ->  Parallel Index Only Scan using idx_users_creators on users u  (cost=0.29..1324.06 rows=35447 width=4) (actual time=0.016..0.753 rows=20083.67 loops=3)
+                                      Heap Fetches: 0
+                                      Index Searches: 1
+                                      Buffers: shared hit=169
+        ->  Index Only Scan using idx_post_media_first_duration on post_media pm  (cost=0.43..0.60 rows=1 width=10) (actual time=0.002..0.002 rows=0.33 loops=150)
+              Index Cond: ((post_id = p.post_id) AND (duration_sec > '60'::numeric))
+              Heap Fetches: 0
+              Index Searches: 150
+              Buffers: shared hit=410 read=41
+Planning:
+  Buffers: shared hit=419
+Planning Time: 0.816 ms
+Execution Time: 14.363 ms
+=== R17 run 3 ===
+Limit  (cost=22484.16..22841.94 rows=50 width=18) (actual time=13.429..14.908 rows=50.00 loops=1)
+  Buffers: shared hit=6202 read=10
+  ->  Nested Loop  (cost=22484.16..31077.88 rows=1201 width=18) (actual time=13.429..14.905 rows=50.00 loops=1)
+        Buffers: shared hit=6202 read=10
+        ->  Gather Merge  (cost=22483.74..23875.51 rows=11950 width=12) (actual time=13.406..14.627 rows=141.00 loops=1)
+              Workers Planned: 2
+              Workers Launched: 2
+              Buffers: shared hit=5788
+              ->  Sort  (cost=21483.71..21496.16 rows=4979 width=12) (actual time=12.064..12.097 rows=1108.67 loops=3)
+                    Sort Key: p.like_count DESC
+                    Sort Method: quicksort  Memory: 342kB
+                    Buffers: shared hit=5788
+                    Worker 0:  Sort Method: quicksort  Memory: 338kB
+                    Worker 1:  Sort Method: quicksort  Memory: 345kB
+                    ->  Parallel Hash Join  (cost=4811.20..21177.96 rows=4979 width=12) (actual time=4.296..11.778 rows=4775.67 loops=3)
+                          Hash Cond: (p.user_id = u.user_id)
+                          Buffers: shared hit=5774
+                          ->  Parallel Bitmap Heap Scan on posts p  (cost=3044.05..19280.67 rows=49578 width=12) (actual time=2.390..6.575 rows=39692.67 loops=3)
+                                Recheck Cond: ((created_at >= '2026-01-01 00:00:00+05:30'::timestamp with time zone) AND (created_at < '2027-01-01 00:00:00+05:30'::timestamp with time zone) AND ((post_type)::text = 'REEL'::text))
+                                Heap Blocks: exact=1662
+                                Buffers: shared hit=5605
+                                Worker 0:  Heap Blocks: exact=1679
+                                Worker 1:  Heap Blocks: exact=1764
+                                ->  Bitmap Index Scan on idx_posts_reels_2026  (cost=0.00..3014.30 rows=118988 width=0) (actual time=2.035..2.035 rows=119078.00 loops=1)
+                                      Index Cond: ((created_at >= '2026-01-01 00:00:00+05:30'::timestamp with time zone) AND (created_at < '2027-01-01 00:00:00+05:30'::timestamp with time zone))
+                                      Index Searches: 1
+                                      Buffers: shared hit=460
+                          ->  Parallel Hash  (cost=1324.06..1324.06 rows=35447 width=4) (actual time=1.865..1.866 rows=20083.67 loops=3)
+                                Buckets: 65536  Batches: 1  Memory Usage: 2944kB
+                                Buffers: shared hit=169
+                                ->  Parallel Index Only Scan using idx_users_creators on users u  (cost=0.29..1324.06 rows=35447 width=4) (actual time=0.016..0.835 rows=20083.67 loops=3)
+                                      Heap Fetches: 0
+                                      Index Searches: 1
+                                      Buffers: shared hit=169
+        ->  Index Only Scan using idx_post_media_first_duration on post_media pm  (cost=0.43..0.60 rows=1 width=10) (actual time=0.002..0.002 rows=0.35 loops=141)
+              Index Cond: ((post_id = p.post_id) AND (duration_sec > '60'::numeric))
+              Heap Fetches: 0
+              Index Searches: 141
+              Buffers: shared hit=414 read=10
+Planning:
+  Buffers: shared hit=419
+Planning Time: 0.744 ms
+Execution Time: 14.942 ms

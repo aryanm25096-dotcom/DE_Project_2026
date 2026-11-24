@@ -1,0 +1,54 @@
+=== R14 run 1 ===
+Merge Anti Join  (cost=0.86..9.92 rows=40 width=4) (actual time=1.321..1.474 rows=580.00 loops=1)
+  Merge Cond: (f.follower_id = b.followee_id)
+  Buffers: shared hit=5 read=6
+  ->  Index Only Scan using idx_follows_followee_accepted on follows f  (cost=0.43..5.13 rows=40 width=4) (actual time=1.177..1.305 rows=580.00 loops=1)
+        Index Cond: (followee_id = 217)
+        Heap Fetches: 0
+        Index Searches: 1
+        Buffers: shared hit=2 read=5
+  ->  Index Only Scan using follows_pkey on follows b  (cost=0.43..4.64 rows=12 width=4) (actual time=0.140..0.141 rows=7.00 loops=1)
+        Index Cond: (follower_id = 217)
+        Heap Fetches: 0
+        Index Searches: 1
+        Buffers: shared hit=3 read=1
+Planning:
+  Buffers: shared hit=164
+Planning Time: 0.332 ms
+Execution Time: 1.501 ms
+=== R14 run 2 ===
+Merge Anti Join  (cost=0.86..9.92 rows=40 width=4) (actual time=0.014..0.050 rows=580.00 loops=1)
+  Merge Cond: (f.follower_id = b.followee_id)
+  Buffers: shared hit=11
+  ->  Index Only Scan using idx_follows_followee_accepted on follows f  (cost=0.43..5.13 rows=40 width=4) (actual time=0.007..0.024 rows=580.00 loops=1)
+        Index Cond: (followee_id = 217)
+        Heap Fetches: 0
+        Index Searches: 1
+        Buffers: shared hit=7
+  ->  Index Only Scan using follows_pkey on follows b  (cost=0.43..4.64 rows=12 width=4) (actual time=0.004..0.005 rows=7.00 loops=1)
+        Index Cond: (follower_id = 217)
+        Heap Fetches: 0
+        Index Searches: 1
+        Buffers: shared hit=4
+Planning:
+  Buffers: shared hit=164
+Planning Time: 0.398 ms
+Execution Time: 0.079 ms
+=== R14 run 3 ===
+Merge Anti Join  (cost=0.86..9.92 rows=40 width=4) (actual time=0.012..0.047 rows=580.00 loops=1)
+  Merge Cond: (f.follower_id = b.followee_id)
+  Buffers: shared hit=11
+  ->  Index Only Scan using idx_follows_followee_accepted on follows f  (cost=0.43..5.13 rows=40 width=4) (actual time=0.007..0.022 rows=580.00 loops=1)
+        Index Cond: (followee_id = 217)
+        Heap Fetches: 0
+        Index Searches: 1
+        Buffers: shared hit=7
+  ->  Index Only Scan using follows_pkey on follows b  (cost=0.43..4.64 rows=12 width=4) (actual time=0.003..0.004 rows=7.00 loops=1)
+        Index Cond: (follower_id = 217)
+        Heap Fetches: 0
+        Index Searches: 1
+        Buffers: shared hit=4
+Planning:
+  Buffers: shared hit=164
+Planning Time: 0.312 ms
+Execution Time: 0.071 ms

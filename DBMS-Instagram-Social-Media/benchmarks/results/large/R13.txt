@@ -1,0 +1,48 @@
+=== R13 run 1 ===
+Nested Loop Anti Join  (cost=0.85..38.27 rows=3 width=24) (actual time=0.028..0.028 rows=1.00 loops=1)
+  Buffers: shared hit=4 read=3
+  ->  Index Scan using idx_comments_post_id on comments c  (cost=0.43..20.50 rows=4 width=24) (actual time=0.022..0.022 rows=1.00 loops=1)
+        Index Cond: (post_id = 59689)
+        Index Searches: 1
+        Buffers: shared hit=1 read=3
+  ->  Index Only Scan using idx_comments_parent on comments r  (cost=0.42..4.44 rows=1 width=4) (actual time=0.005..0.005 rows=0.00 loops=1)
+        Index Cond: (parent_comment_id = c.comment_id)
+        Heap Fetches: 0
+        Index Searches: 1
+        Buffers: shared hit=3
+Planning:
+  Buffers: shared hit=248
+Planning Time: 0.413 ms
+Execution Time: 0.051 ms
+=== R13 run 2 ===
+Nested Loop Anti Join  (cost=0.85..38.27 rows=3 width=24) (actual time=0.012..0.012 rows=1.00 loops=1)
+  Buffers: shared hit=7
+  ->  Index Scan using idx_comments_post_id on comments c  (cost=0.43..20.50 rows=4 width=24) (actual time=0.006..0.006 rows=1.00 loops=1)
+        Index Cond: (post_id = 59689)
+        Index Searches: 1
+        Buffers: shared hit=4
+  ->  Index Only Scan using idx_comments_parent on comments r  (cost=0.42..4.44 rows=1 width=4) (actual time=0.004..0.004 rows=0.00 loops=1)
+        Index Cond: (parent_comment_id = c.comment_id)
+        Heap Fetches: 0
+        Index Searches: 1
+        Buffers: shared hit=3
+Planning:
+  Buffers: shared hit=248
+Planning Time: 0.348 ms
+Execution Time: 0.030 ms
+=== R13 run 3 ===
+Nested Loop Anti Join  (cost=0.85..38.27 rows=3 width=24) (actual time=0.011..0.011 rows=1.00 loops=1)
+  Buffers: shared hit=7
+  ->  Index Scan using idx_comments_post_id on comments c  (cost=0.43..20.50 rows=4 width=24) (actual time=0.006..0.006 rows=1.00 loops=1)
+        Index Cond: (post_id = 59689)
+        Index Searches: 1
+        Buffers: shared hit=4
+  ->  Index Only Scan using idx_comments_parent on comments r  (cost=0.42..4.44 rows=1 width=4) (actual time=0.004..0.004 rows=0.00 loops=1)
+        Index Cond: (parent_comment_id = c.comment_id)
+        Heap Fetches: 0
+        Index Searches: 1
+        Buffers: shared hit=3
+Planning:
+  Buffers: shared hit=248
+Planning Time: 0.373 ms
+Execution Time: 0.029 ms

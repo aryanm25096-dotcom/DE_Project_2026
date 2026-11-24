@@ -1,0 +1,78 @@
+=== R04 run 1 ===
+Sort  (cost=41.94..41.95 rows=3 width=40) (actual time=0.070..0.070 rows=1.00 loops=1)
+  Sort Key: c.created_at
+  Sort Method: quicksort  Memory: 25kB
+  Buffers: shared hit=6 read=7
+  ->  GroupAggregate  (cost=41.86..41.92 rows=3 width=40) (actual time=0.059..0.060 rows=1.00 loops=1)
+        Group Key: c.comment_id
+        Buffers: shared hit=3 read=7
+        ->  Sort  (cost=41.86..41.87 rows=3 width=36) (actual time=0.057..0.057 rows=1.00 loops=1)
+              Sort Key: c.comment_id
+              Sort Method: quicksort  Memory: 25kB
+              Buffers: shared hit=3 read=7
+              ->  Nested Loop Left Join  (cost=0.85..41.84 rows=3 width=36) (actual time=0.051..0.052 rows=1.00 loops=1)
+                    Buffers: shared read=7
+                    ->  Index Scan using idx_comments_post_parent on comments c  (cost=0.43..16.49 rows=3 width=32) (actual time=0.038..0.038 rows=1.00 loops=1)
+                          Index Cond: ((post_id = 59689) AND (parent_comment_id IS NULL))
+                          Index Searches: 1
+                          Buffers: shared read=4
+                    ->  Index Scan using idx_comments_parent on comments r  (cost=0.42..8.44 rows=1 width=8) (actual time=0.012..0.012 rows=0.00 loops=1)
+                          Index Cond: (parent_comment_id = c.comment_id)
+                          Index Searches: 1
+                          Buffers: shared read=3
+Planning:
+  Buffers: shared hit=194 read=11
+Planning Time: 0.955 ms
+Execution Time: 0.250 ms
+=== R04 run 2 ===
+Sort  (cost=41.94..41.95 rows=3 width=40) (actual time=0.027..0.027 rows=1.00 loops=1)
+  Sort Key: c.created_at
+  Sort Method: quicksort  Memory: 25kB
+  Buffers: shared hit=13
+  ->  GroupAggregate  (cost=41.86..41.92 rows=3 width=40) (actual time=0.019..0.019 rows=1.00 loops=1)
+        Group Key: c.comment_id
+        Buffers: shared hit=10
+        ->  Sort  (cost=41.86..41.87 rows=3 width=36) (actual time=0.017..0.017 rows=1.00 loops=1)
+              Sort Key: c.comment_id
+              Sort Method: quicksort  Memory: 25kB
+              Buffers: shared hit=10
+              ->  Nested Loop Left Join  (cost=0.85..41.84 rows=3 width=36) (actual time=0.012..0.012 rows=1.00 loops=1)
+                    Buffers: shared hit=7
+                    ->  Index Scan using idx_comments_post_parent on comments c  (cost=0.43..16.49 rows=3 width=32) (actual time=0.006..0.006 rows=1.00 loops=1)
+                          Index Cond: ((post_id = 59689) AND (parent_comment_id IS NULL))
+                          Index Searches: 1
+                          Buffers: shared hit=4
+                    ->  Index Scan using idx_comments_parent on comments r  (cost=0.42..8.44 rows=1 width=8) (actual time=0.005..0.005 rows=0.00 loops=1)
+                          Index Cond: (parent_comment_id = c.comment_id)
+                          Index Searches: 1
+                          Buffers: shared hit=3
+Planning:
+  Buffers: shared hit=205
+Planning Time: 0.389 ms
+Execution Time: 0.051 ms
+=== R04 run 3 ===
+Sort  (cost=41.94..41.95 rows=3 width=40) (actual time=0.025..0.025 rows=1.00 loops=1)
+  Sort Key: c.created_at
+  Sort Method: quicksort  Memory: 25kB
+  Buffers: shared hit=13
+  ->  GroupAggregate  (cost=41.86..41.92 rows=3 width=40) (actual time=0.018..0.018 rows=1.00 loops=1)
+        Group Key: c.comment_id
+        Buffers: shared hit=10
+        ->  Sort  (cost=41.86..41.87 rows=3 width=36) (actual time=0.016..0.016 rows=1.00 loops=1)
+              Sort Key: c.comment_id
+              Sort Method: quicksort  Memory: 25kB
+              Buffers: shared hit=10
+              ->  Nested Loop Left Join  (cost=0.85..41.84 rows=3 width=36) (actual time=0.012..0.012 rows=1.00 loops=1)
+                    Buffers: shared hit=7
+                    ->  Index Scan using idx_comments_post_parent on comments c  (cost=0.43..16.49 rows=3 width=32) (actual time=0.005..0.005 rows=1.00 loops=1)
+                          Index Cond: ((post_id = 59689) AND (parent_comment_id IS NULL))
+                          Index Searches: 1
+                          Buffers: shared hit=4
+                    ->  Index Scan using idx_comments_parent on comments r  (cost=0.42..8.44 rows=1 width=8) (actual time=0.005..0.005 rows=0.00 loops=1)
+                          Index Cond: (parent_comment_id = c.comment_id)
+                          Index Searches: 1
+                          Buffers: shared hit=3
+Planning:
+  Buffers: shared hit=205
+Planning Time: 0.358 ms
+Execution Time: 0.049 ms

@@ -1,31 +1,31 @@
 query_id,type,avg_ms,median_ms,min_ms,max_ms,scan_nodes
-R01,READ,2.450,2.390,2.150,2.810,Index Only Scan using idx_follows_follower_status on follows | Bitmap Heap Scan on posts | Bitmap Index Scan on idx_posts_user_created
-R02,READ,0.185,0.170,0.155,0.230,Bitmap Heap Scan on posts | Bitmap Index Scan on idx_posts_user_created
-R03,READ,0.028,0.027,0.025,0.032,Index Scan using users_username_key on users
-R04,READ,1.150,1.080,0.950,1.420,Bitmap Heap Scan on comments | Bitmap Index Scan on idx_comments_post_id | Index Scan using idx_comments_parent on comments
-R05,READ,4.850,4.620,4.410,5.520,Index Only Scan using idx_posts_created_likes on posts | Seq Scan on hashtags | Index Only Scan using idx_post_hashtags_hash_post on post_hashtags
-R06,READ,8.920,8.750,8.200,9.810,Bitmap Heap Scan on users | Bitmap Index Scan on idx_users_username_trgm | Bitmap Index Scan on idx_users_fullname_trgm
-R07,READ,0.420,0.395,0.360,0.505,Index Only Scan using idx_likes_part_post on likes_partitioned | Index Scan using users_pkey on users | Index Only Scan using idx_follows_follower_status on follows
-R08,READ,4.250,4.110,3.950,4.690,Index Only Scan using idx_follows_follower_status on follows | Index Only Scan using follows_pkey on follows
-R09,READ,0.350,0.320,0.295,0.435,Index Only Scan using idx_follows_pending on follows | Index Scan using users_pkey on users
-R10,READ,1.850,1.790,1.680,2.080,Index Only Scan using idx_follows_follower_status on follows | Index Only Scan using idx_stories_user_created on stories
-R11,READ,68.500,67.200,64.800,73.500,Index Scan using idx_posts_user_created on posts | Index Scan using idx_users_creators on users
-R12,READ,12.800,12.450,11.900,14.050,Index Only Scan using idx_posts_created_likes on posts | Index Only Scan using post_hashtags_pkey on post_hashtags | Seq Scan on hashtags
-R13,READ,0.520,0.490,0.450,0.620,Bitmap Heap Scan on comments | Bitmap Index Scan on idx_comments_post_id | Index Only Scan using idx_comments_parent on comments
-R14,READ,0.820,0.790,0.720,0.950,Index Only Scan using idx_follows_followee_accepted on follows | Index Only Scan using follows_pkey on follows
-R15,READ,245.000,241.000,235.000,259.000,Bitmap Heap Scan on users | Bitmap Index Scan on idx_users_verified | Bitmap Index Scan on idx_users_creators | Index Only Scan using idx_follows_followee_accepted on follows
-R16,READ,2.450,2.380,2.210,2.760,Bitmap Heap Scan on posts | Bitmap Index Scan on idx_posts_location_trgm | Bitmap Index Scan on idx_posts_created_likes
-R17,READ,38.500,37.600,36.200,41.700,Bitmap Heap Scan on posts | Bitmap Index Scan on idx_posts_reels_2026 | Index Only Scan using idx_users_creators on users | Index Only Scan using idx_post_media_first_duration on post_media
-R18,READ,14.200,13.900,13.400,15.300,Bitmap Heap Scan on posts | Bitmap Index Scan on idx_posts_created_likes
-R19,READ,385.000,379.000,368.000,408.000,Index Scan using idx_posts_user_created on posts | Index Only Scan using idx_users_verified on users | Index Only Scan using idx_likes_part_post on likes_partitioned
-R20,READ,52.000,50.800,48.900,56.300,Index Only Scan using idx_posts_created_likes on posts | Index Only Scan using idx_comments_post_id on comments
-R21,READ,18.250,17.800,16.900,20.050,Index Only Scan using idx_follows_followee_accepted on follows | Index Only Scan using idx_likes_user_post on likes_partitioned | Index Scan using posts_pkey on posts
-R22,READ,2.150,2.050,1.920,2.480,Index Only Scan using idx_comments_hidden_created on comments
-R23,READ,0.095,0.092,0.088,0.105,Index Only Scan using idx_likes_part_user on likes_partitioned
-R24,READ,9.850,9.600,9.200,10.750,Index Only Scan using idx_stories_created_views on stories
-W01,WRITE,1.650,1.600,1.480,1.870,(no scan)
-W02,WRITE,0.980,0.950,0.890,1.100,(no scan)
-W03,WRITE,0.280,0.270,0.250,0.320,Index Scan using posts_pkey on posts
-W04,WRITE,1420.000,1390.000,1340.000,1530.000,Seq Scan on users | Seq Scan on follows
-W05,WRITE,240.000,234.000,225.000,261.000,Index Scan using idx_stories_expires_at on stories
-W06,WRITE,1.420,1.380,1.310,1.570,Index Scan using idx_follows_pending on follows
+R01,READ,3.788,2.240,2.218,6.906,Index Only Scan using idx_follows_follower_status on follows | Bitmap Heap Scan on posts | Bitmap Index Scan on idx_posts_user_created
+R02,READ,0.052,0.046,0.033,0.077,Index Scan using idx_posts_user_created on posts
+R03,READ,0.843,0.028,0.023,2.477,Index Scan using users_username_key on users
+R04,READ,0.117,0.051,0.049,0.250,Index Scan using idx_comments_post_parent on comments | Index Scan using idx_comments_parent on comments
+R05,READ,13.445,9.097,7.702,23.535,Index Only Scan using idx_posts_created_likes on posts | Index Only Scan using post_hashtags_pkey on post_hashtags | Seq Scan on hashtags
+R06,READ,41.042,21.413,20.857,80.856,Bitmap Heap Scan on users | Bitmap Index Scan on idx_users_username_trgm | Bitmap Index Scan on idx_users_fullname_trgm
+R07,READ,0.462,0.094,0.093,1.200,Index Only Scan using idx_likes_post_id on likes | Index Only Scan using idx_follows_follower_status on follows | Index Scan using users_pkey on users
+R08,READ,0.393,0.110,0.095,0.974,Index Only Scan using idx_follows_follower_status on follows | Index Only Scan using follows_pkey on follows
+R09,READ,3.272,0.245,0.226,9.345,Index Only Scan using idx_follows_pending on follows | Index Scan using users_pkey on users
+R10,READ,0.092,0.081,0.079,0.116,Index Only Scan using idx_follows_follower_status on follows | Index Only Scan using idx_stories_user_created on stories
+R11,READ,35.775,34.987,34.767,37.571,Seq Scan on posts | Index Scan using idx_users_creators on users
+R12,READ,9.396,9.315,9.142,9.732,Index Only Scan using idx_posts_created_likes on posts | Index Only Scan using post_hashtags_pkey on post_hashtags | Seq Scan on hashtags
+R13,READ,0.037,0.030,0.029,0.051,Index Scan using idx_comments_post_id on comments | Index Only Scan using idx_comments_parent on comments
+R14,READ,0.550,0.079,0.071,1.501,Index Only Scan using idx_follows_followee_accepted on follows | Index Only Scan using follows_pkey on follows
+R15,READ,137.030,91.557,90.224,229.309,Bitmap Heap Scan on users | Bitmap Index Scan on idx_users_verified | Bitmap Index Scan on idx_users_creators | Index Only Scan using idx_follows_followee_accepted on follows
+R16,READ,3.984,3.571,3.475,4.905,Bitmap Heap Scan on posts | Bitmap Index Scan on idx_posts_location_trgm | Bitmap Index Scan on idx_posts_created_likes
+R17,READ,16.338,14.942,14.363,19.709,Bitmap Heap Scan on posts | Bitmap Index Scan on idx_posts_reels_2026 | Index Only Scan using idx_users_creators on users | Index Only Scan using idx_post_media_first_duration on post_media
+R18,READ,14.967,14.988,14.898,15.015,Bitmap Heap Scan on posts | Bitmap Index Scan on idx_posts_created_likes
+R19,READ,172.108,162.106,105.611,248.606,Seq Scan on posts | Index Only Scan using idx_users_verified on users | Index Only Scan using idx_likes_post_id on likes
+R20,READ,45.922,45.888,45.312,46.566,Index Only Scan using idx_posts_created_likes on posts | Index Only Scan using idx_comments_post_id on comments
+R21,READ,73.703,14.914,14.567,191.627,Index Only Scan using idx_follows_followee_accepted on follows | Index Only Scan using idx_likes_user_post on likes | Index Scan using posts_pkey on posts
+R22,READ,0.137,0.131,0.129,0.152,Index Only Scan using idx_comments_hidden_created on comments
+R23,READ,0.043,0.031,0.026,0.073,Index Only Scan using idx_likes_user_post on likes
+R24,READ,7.845,7.782,7.608,8.145,Index Only Scan using idx_stories_created_views on stories
+W01,WRITE,1.092,0.825,0.785,1.665,(no scan)
+W02,WRITE,1.089,0.673,0.640,1.955,(no scan)
+W03,WRITE,1.421,0.683,0.500,3.079,Index Scan using posts_pkey on posts
+W04,WRITE,1813.185,1770.658,1334.718,2334.178,Index Only Scan using users_pkey on users | Index Only Scan using idx_follows_followee_accepted on follows | Index Scan using users_pkey on users
+W05,WRITE,605.607,455.744,454.675,906.401,Seq Scan on stories
+W06,WRITE,13.131,0.805,0.694,37.895,Index Scan using idx_follows_pending on follows

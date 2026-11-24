@@ -1,0 +1,60 @@
+=== R24 run 1 ===
+Limit  (cost=3229.67..3229.72 rows=20 width=20) (actual time=8.058..8.059 rows=20.00 loops=1)
+  Buffers: shared hit=3 read=173
+  ->  Sort  (cost=3229.67..3330.14 rows=40186 width=20) (actual time=8.058..8.058 rows=20.00 loops=1)
+        Sort Key: (sum(view_count)) DESC
+        Sort Method: top-N heapsort  Memory: 27kB
+        Buffers: shared hit=3 read=173
+        ->  HashAggregate  (cost=1758.47..2160.34 rows=40186 width=20) (actual time=4.864..6.658 rows=40592.00 loops=1)
+              Group Key: user_id
+              Batches: 1  Memory Usage: 3353kB
+              Buffers: shared read=173
+              ->  Index Only Scan using idx_stories_created_views on stories  (cost=0.42..1432.66 rows=43442 width=8) (actual time=0.036..1.737 rows=43956.00 loops=1)
+                    Index Cond: (created_at >= '2026-06-01 00:00:00+05:30'::timestamp with time zone)
+                    Heap Fetches: 0
+                    Index Searches: 1
+                    Buffers: shared read=173
+Planning:
+  Buffers: shared hit=168 read=7
+Planning Time: 0.342 ms
+Execution Time: 8.145 ms
+=== R24 run 2 ===
+Limit  (cost=3229.67..3229.72 rows=20 width=20) (actual time=7.698..7.699 rows=20.00 loops=1)
+  Buffers: shared hit=176
+  ->  Sort  (cost=3229.67..3330.14 rows=40186 width=20) (actual time=7.697..7.698 rows=20.00 loops=1)
+        Sort Key: (sum(view_count)) DESC
+        Sort Method: top-N heapsort  Memory: 27kB
+        Buffers: shared hit=176
+        ->  HashAggregate  (cost=1758.47..2160.34 rows=40186 width=20) (actual time=4.585..6.368 rows=40592.00 loops=1)
+              Group Key: user_id
+              Batches: 1  Memory Usage: 3353kB
+              Buffers: shared hit=173
+              ->  Index Only Scan using idx_stories_created_views on stories  (cost=0.42..1432.66 rows=43442 width=8) (actual time=0.025..1.538 rows=43956.00 loops=1)
+                    Index Cond: (created_at >= '2026-06-01 00:00:00+05:30'::timestamp with time zone)
+                    Heap Fetches: 0
+                    Index Searches: 1
+                    Buffers: shared hit=173
+Planning:
+  Buffers: shared hit=175
+Planning Time: 0.253 ms
+Execution Time: 7.782 ms
+=== R24 run 3 ===
+Limit  (cost=3229.67..3229.72 rows=20 width=20) (actual time=7.510..7.513 rows=20.00 loops=1)
+  Buffers: shared hit=176
+  ->  Sort  (cost=3229.67..3330.14 rows=40186 width=20) (actual time=7.510..7.510 rows=20.00 loops=1)
+        Sort Key: (sum(view_count)) DESC
+        Sort Method: top-N heapsort  Memory: 27kB
+        Buffers: shared hit=176
+        ->  HashAggregate  (cost=1758.47..2160.34 rows=40186 width=20) (actual time=4.430..6.164 rows=40592.00 loops=1)
+              Group Key: user_id
+              Batches: 1  Memory Usage: 3353kB
+              Buffers: shared hit=173
+              ->  Index Only Scan using idx_stories_created_views on stories  (cost=0.42..1432.66 rows=43442 width=8) (actual time=0.024..1.518 rows=43956.00 loops=1)
+                    Index Cond: (created_at >= '2026-06-01 00:00:00+05:30'::timestamp with time zone)
+                    Heap Fetches: 0
+                    Index Searches: 1
+                    Buffers: shared hit=173
+Planning:
+  Buffers: shared hit=175
+Planning Time: 0.264 ms
+Execution Time: 7.608 ms

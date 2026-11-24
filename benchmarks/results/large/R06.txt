@@ -1,0 +1,75 @@
+=== R06 run 1 ===
+Limit  (cost=11451.50..11451.55 rows=20 width=38) (actual time=80.809..80.811 rows=20.00 loops=1)
+  Buffers: shared hit=5129 read=5096 written=1457
+  ->  Sort  (cost=11451.50..11512.24 rows=24299 width=38) (actual time=80.808..80.809 rows=20.00 loops=1)
+        Sort Key: is_verified DESC, followers_count DESC
+        Sort Method: top-N heapsort  Memory: 26kB
+        Buffers: shared hit=5129 read=5096 written=1457
+        ->  Bitmap Heap Scan on users  (cost=555.39..10804.91 rows=24299 width=38) (actual time=6.513..78.792 rows=24000.00 loops=1)
+              Recheck Cond: (((username)::text ~~* 'karan%'::text) OR ((full_name)::text ~~* '%karan sharma%'::text))
+              Heap Blocks: exact=9884
+              Buffers: shared hit=5121 read=5096 written=1457
+              ->  BitmapOr  (cost=555.39..555.39 rows=24301 width=0) (actual time=5.898..5.898 rows=0.00 loops=1)
+                    Buffers: shared hit=333
+                    ->  Bitmap Index Scan on idx_users_username_trgm  (cost=0.00..201.77 rows=24242 width=0) (actual time=2.432..2.432 rows=24000.00 loops=1)
+                          Index Cond: ((username)::text ~~* 'karan%'::text)
+                          Index Searches: 1
+                          Buffers: shared hit=107
+                    ->  Bitmap Index Scan on idx_users_fullname_trgm  (cost=0.00..341.47 rows=59 width=0) (actual time=3.466..3.466 rows=1200.00 loops=1)
+                          Index Cond: ((full_name)::text ~~* '%karan sharma%'::text)
+                          Index Searches: 1
+                          Buffers: shared hit=226
+Planning:
+  Buffers: shared hit=207
+Planning Time: 0.994 ms
+Execution Time: 80.856 ms
+=== R06 run 2 ===
+Limit  (cost=11451.50..11451.55 rows=20 width=38) (actual time=21.356..21.358 rows=20.00 loops=1)
+  Buffers: shared hit=10225
+  ->  Sort  (cost=11451.50..11512.24 rows=24299 width=38) (actual time=21.356..21.356 rows=20.00 loops=1)
+        Sort Key: is_verified DESC, followers_count DESC
+        Sort Method: top-N heapsort  Memory: 26kB
+        Buffers: shared hit=10225
+        ->  Bitmap Heap Scan on users  (cost=555.39..10804.91 rows=24299 width=38) (actual time=6.907..19.763 rows=24000.00 loops=1)
+              Recheck Cond: (((username)::text ~~* 'karan%'::text) OR ((full_name)::text ~~* '%karan sharma%'::text))
+              Heap Blocks: exact=9884
+              Buffers: shared hit=10217
+              ->  BitmapOr  (cost=555.39..555.39 rows=24301 width=0) (actual time=6.268..6.268 rows=0.00 loops=1)
+                    Buffers: shared hit=333
+                    ->  Bitmap Index Scan on idx_users_username_trgm  (cost=0.00..201.77 rows=24242 width=0) (actual time=2.688..2.689 rows=24000.00 loops=1)
+                          Index Cond: ((username)::text ~~* 'karan%'::text)
+                          Index Searches: 1
+                          Buffers: shared hit=107
+                    ->  Bitmap Index Scan on idx_users_fullname_trgm  (cost=0.00..341.47 rows=59 width=0) (actual time=3.579..3.579 rows=1200.00 loops=1)
+                          Index Cond: ((full_name)::text ~~* '%karan sharma%'::text)
+                          Index Searches: 1
+                          Buffers: shared hit=226
+Planning:
+  Buffers: shared hit=207
+Planning Time: 0.913 ms
+Execution Time: 21.413 ms
+=== R06 run 3 ===
+Limit  (cost=11451.50..11451.55 rows=20 width=38) (actual time=20.807..20.809 rows=20.00 loops=1)
+  Buffers: shared hit=10225
+  ->  Sort  (cost=11451.50..11512.24 rows=24299 width=38) (actual time=20.806..20.807 rows=20.00 loops=1)
+        Sort Key: is_verified DESC, followers_count DESC
+        Sort Method: top-N heapsort  Memory: 26kB
+        Buffers: shared hit=10225
+        ->  Bitmap Heap Scan on users  (cost=555.39..10804.91 rows=24299 width=38) (actual time=6.320..19.199 rows=24000.00 loops=1)
+              Recheck Cond: (((username)::text ~~* 'karan%'::text) OR ((full_name)::text ~~* '%karan sharma%'::text))
+              Heap Blocks: exact=9884
+              Buffers: shared hit=10217
+              ->  BitmapOr  (cost=555.39..555.39 rows=24301 width=0) (actual time=5.699..5.700 rows=0.00 loops=1)
+                    Buffers: shared hit=333
+                    ->  Bitmap Index Scan on idx_users_username_trgm  (cost=0.00..201.77 rows=24242 width=0) (actual time=2.543..2.543 rows=24000.00 loops=1)
+                          Index Cond: ((username)::text ~~* 'karan%'::text)
+                          Index Searches: 1
+                          Buffers: shared hit=107
+                    ->  Bitmap Index Scan on idx_users_fullname_trgm  (cost=0.00..341.47 rows=59 width=0) (actual time=3.156..3.156 rows=1200.00 loops=1)
+                          Index Cond: ((full_name)::text ~~* '%karan sharma%'::text)
+                          Index Searches: 1
+                          Buffers: shared hit=226
+Planning:
+  Buffers: shared hit=207
+Planning Time: 0.760 ms
+Execution Time: 20.857 ms

@@ -1,0 +1,96 @@
+=== R07 run 1 ===
+Sort  (cost=77.08..77.10 rows=8 width=30) (actual time=1.165..1.166 rows=5.00 loops=1)
+  Sort Key: ((f.follower_id IS NOT NULL)) DESC, l.created_at DESC
+  Sort Method: quicksort  Memory: 25kB
+  Buffers: shared hit=27 read=11
+  ->  Nested Loop  (cost=5.55..76.96 rows=8 width=30) (actual time=0.192..1.153 rows=5.00 loops=1)
+        Buffers: shared hit=19 read=11
+        ->  Merge Left Join  (cost=5.13..9.42 rows=8 width=16) (actual time=0.063..0.066 rows=5.00 loops=1)
+              Merge Cond: (l.user_id = f.followee_id)
+              Buffers: shared hit=7 read=3
+              ->  Sort  (cost=4.69..4.71 rows=8 width=12) (actual time=0.016..0.017 rows=5.00 loops=1)
+                    Sort Key: l.user_id
+                    Sort Method: quicksort  Memory: 25kB
+                    Buffers: shared hit=3 read=3
+                    ->  Index Only Scan using idx_likes_post_id on likes l  (cost=0.43..4.57 rows=8 width=12) (actual time=0.012..0.013 rows=5.00 loops=1)
+                          Index Cond: (post_id = 59689)
+                          Heap Fetches: 0
+                          Index Searches: 1
+                          Buffers: shared hit=3 read=3
+              ->  Index Only Scan using idx_follows_follower_status on follows f  (cost=0.43..4.64 rows=12 width=8) (actual time=0.032..0.033 rows=8.00 loops=1)
+                    Index Cond: (follower_id = 1042)
+                    Heap Fetches: 0
+                    Index Searches: 1
+                    Buffers: shared hit=4
+        ->  Index Scan using users_pkey on users u  (cost=0.42..8.44 rows=1 width=21) (actual time=0.216..0.216 rows=1.00 loops=5)
+              Index Cond: (user_id = l.user_id)
+              Index Searches: 5
+              Buffers: shared hit=12 read=8
+Planning:
+  Buffers: shared hit=440 read=13
+Planning Time: 4.199 ms
+Execution Time: 1.200 ms
+=== R07 run 2 ===
+Sort  (cost=77.08..77.10 rows=8 width=30) (actual time=0.072..0.072 rows=5.00 loops=1)
+  Sort Key: ((f.follower_id IS NOT NULL)) DESC, l.created_at DESC
+  Sort Method: quicksort  Memory: 25kB
+  Buffers: shared hit=38
+  ->  Nested Loop  (cost=5.55..76.96 rows=8 width=30) (actual time=0.045..0.061 rows=5.00 loops=1)
+        Buffers: shared hit=30
+        ->  Merge Left Join  (cost=5.13..9.42 rows=8 width=16) (actual time=0.039..0.040 rows=5.00 loops=1)
+              Merge Cond: (l.user_id = f.followee_id)
+              Buffers: shared hit=10
+              ->  Sort  (cost=4.69..4.71 rows=8 width=12) (actual time=0.011..0.011 rows=5.00 loops=1)
+                    Sort Key: l.user_id
+                    Sort Method: quicksort  Memory: 25kB
+                    Buffers: shared hit=6
+                    ->  Index Only Scan using idx_likes_post_id on likes l  (cost=0.43..4.57 rows=8 width=12) (actual time=0.008..0.009 rows=5.00 loops=1)
+                          Index Cond: (post_id = 59689)
+                          Heap Fetches: 0
+                          Index Searches: 1
+                          Buffers: shared hit=6
+              ->  Index Only Scan using idx_follows_follower_status on follows f  (cost=0.43..4.64 rows=12 width=8) (actual time=0.025..0.026 rows=8.00 loops=1)
+                    Index Cond: (follower_id = 1042)
+                    Heap Fetches: 0
+                    Index Searches: 1
+                    Buffers: shared hit=4
+        ->  Index Scan using users_pkey on users u  (cost=0.42..8.44 rows=1 width=21) (actual time=0.004..0.004 rows=1.00 loops=5)
+              Index Cond: (user_id = l.user_id)
+              Index Searches: 5
+              Buffers: shared hit=20
+Planning:
+  Buffers: shared hit=453
+Planning Time: 0.742 ms
+Execution Time: 0.093 ms
+=== R07 run 3 ===
+Sort  (cost=77.08..77.10 rows=8 width=30) (actual time=0.073..0.073 rows=5.00 loops=1)
+  Sort Key: ((f.follower_id IS NOT NULL)) DESC, l.created_at DESC
+  Sort Method: quicksort  Memory: 25kB
+  Buffers: shared hit=38
+  ->  Nested Loop  (cost=5.55..76.96 rows=8 width=30) (actual time=0.043..0.062 rows=5.00 loops=1)
+        Buffers: shared hit=30
+        ->  Merge Left Join  (cost=5.13..9.42 rows=8 width=16) (actual time=0.038..0.039 rows=5.00 loops=1)
+              Merge Cond: (l.user_id = f.followee_id)
+              Buffers: shared hit=10
+              ->  Sort  (cost=4.69..4.71 rows=8 width=12) (actual time=0.010..0.011 rows=5.00 loops=1)
+                    Sort Key: l.user_id
+                    Sort Method: quicksort  Memory: 25kB
+                    Buffers: shared hit=6
+                    ->  Index Only Scan using idx_likes_post_id on likes l  (cost=0.43..4.57 rows=8 width=12) (actual time=0.008..0.008 rows=5.00 loops=1)
+                          Index Cond: (post_id = 59689)
+                          Heap Fetches: 0
+                          Index Searches: 1
+                          Buffers: shared hit=6
+              ->  Index Only Scan using idx_follows_follower_status on follows f  (cost=0.43..4.64 rows=12 width=8) (actual time=0.025..0.026 rows=8.00 loops=1)
+                    Index Cond: (follower_id = 1042)
+                    Heap Fetches: 0
+                    Index Searches: 1
+                    Buffers: shared hit=4
+        ->  Index Scan using users_pkey on users u  (cost=0.42..8.44 rows=1 width=21) (actual time=0.004..0.004 rows=1.00 loops=5)
+              Index Cond: (user_id = l.user_id)
+              Index Searches: 5
+              Buffers: shared hit=20
+Planning:
+  Buffers: shared hit=453
+Planning Time: 0.807 ms
+Execution Time: 0.094 ms

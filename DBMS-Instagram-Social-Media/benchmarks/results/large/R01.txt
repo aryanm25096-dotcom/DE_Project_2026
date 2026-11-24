@@ -1,0 +1,78 @@
+=== R01 run 1 ===
+Limit  (cost=306.86..306.93 rows=30 width=60) (actual time=6.726..6.729 rows=30.00 loops=1)
+  Buffers: shared hit=67 read=1885 written=2
+  ->  Sort  (cost=306.86..307.75 rows=356 width=60) (actual time=6.726..6.727 rows=30.00 loops=1)
+        Sort Key: p.created_at DESC
+        Sort Method: top-N heapsort  Memory: 32kB
+        Buffers: shared hit=67 read=1885 written=2
+        ->  Nested Loop  (cost=4.90..296.34 rows=356 width=60) (actual time=1.304..6.505 rows=1990.00 loops=1)
+              Buffers: shared hit=64 read=1885 written=2
+              ->  Index Only Scan using idx_follows_follower_status on follows f  (cost=0.43..4.64 rows=12 width=4) (actual time=0.418..0.421 rows=8.00 loops=1)
+                    Index Cond: (follower_id = 1042)
+                    Heap Fetches: 0
+                    Index Searches: 1
+                    Buffers: shared hit=1 read=3
+              ->  Bitmap Heap Scan on posts p  (cost=4.47..24.26 rows=5 width=60) (actual time=0.298..0.741 rows=248.75 loops=8)
+                    Recheck Cond: ((user_id = f.followee_id) AND (NOT is_archived))
+                    Heap Blocks: exact=1914
+                    Buffers: shared hit=63 read=1882 written=2
+                    ->  Bitmap Index Scan on idx_posts_user_created  (cost=0.00..4.46 rows=5 width=0) (actual time=0.276..0.276 rows=248.75 loops=8)
+                          Index Cond: (user_id = f.followee_id)
+                          Index Searches: 8
+                          Buffers: shared hit=10 read=21
+Planning:
+  Buffers: shared hit=376 read=1
+Planning Time: 1.016 ms
+Execution Time: 6.906 ms
+=== R01 run 2 ===
+Limit  (cost=306.86..306.93 rows=30 width=60) (actual time=2.197..2.199 rows=30.00 loops=1)
+  Buffers: shared hit=1952
+  ->  Sort  (cost=306.86..307.75 rows=356 width=60) (actual time=2.196..2.198 rows=30.00 loops=1)
+        Sort Key: p.created_at DESC
+        Sort Method: top-N heapsort  Memory: 32kB
+        Buffers: shared hit=1952
+        ->  Nested Loop  (cost=4.90..296.34 rows=356 width=60) (actual time=0.347..2.016 rows=1990.00 loops=1)
+              Buffers: shared hit=1949
+              ->  Index Only Scan using idx_follows_follower_status on follows f  (cost=0.43..4.64 rows=12 width=4) (actual time=0.029..0.031 rows=8.00 loops=1)
+                    Index Cond: (follower_id = 1042)
+                    Heap Fetches: 0
+                    Index Searches: 1
+                    Buffers: shared hit=4
+              ->  Bitmap Heap Scan on posts p  (cost=4.47..24.26 rows=5 width=60) (actual time=0.048..0.233 rows=248.75 loops=8)
+                    Recheck Cond: ((user_id = f.followee_id) AND (NOT is_archived))
+                    Heap Blocks: exact=1914
+                    Buffers: shared hit=1945
+                    ->  Bitmap Index Scan on idx_posts_user_created  (cost=0.00..4.46 rows=5 width=0) (actual time=0.034..0.034 rows=248.75 loops=8)
+                          Index Cond: (user_id = f.followee_id)
+                          Index Searches: 8
+                          Buffers: shared hit=31
+Planning:
+  Buffers: shared hit=382
+Planning Time: 0.580 ms
+Execution Time: 2.218 ms
+=== R01 run 3 ===
+Limit  (cost=306.86..306.93 rows=30 width=60) (actual time=2.220..2.222 rows=30.00 loops=1)
+  Buffers: shared hit=1952
+  ->  Sort  (cost=306.86..307.75 rows=356 width=60) (actual time=2.220..2.221 rows=30.00 loops=1)
+        Sort Key: p.created_at DESC
+        Sort Method: top-N heapsort  Memory: 32kB
+        Buffers: shared hit=1952
+        ->  Nested Loop  (cost=4.90..296.34 rows=356 width=60) (actual time=0.213..2.016 rows=1990.00 loops=1)
+              Buffers: shared hit=1949
+              ->  Index Only Scan using idx_follows_follower_status on follows f  (cost=0.43..4.64 rows=12 width=4) (actual time=0.041..0.043 rows=8.00 loops=1)
+                    Index Cond: (follower_id = 1042)
+                    Heap Fetches: 0
+                    Index Searches: 1
+                    Buffers: shared hit=4
+              ->  Bitmap Heap Scan on posts p  (cost=4.47..24.26 rows=5 width=60) (actual time=0.030..0.226 rows=248.75 loops=8)
+                    Recheck Cond: ((user_id = f.followee_id) AND (NOT is_archived))
+                    Heap Blocks: exact=1914
+                    Buffers: shared hit=1945
+                    ->  Bitmap Index Scan on idx_posts_user_created  (cost=0.00..4.46 rows=5 width=0) (actual time=0.018..0.018 rows=248.75 loops=8)
+                          Index Cond: (user_id = f.followee_id)
+                          Index Searches: 8
+                          Buffers: shared hit=31
+Planning:
+  Buffers: shared hit=382
+Planning Time: 0.507 ms
+Execution Time: 2.240 ms

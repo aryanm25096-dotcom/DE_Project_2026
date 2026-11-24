@@ -1,0 +1,198 @@
+=== R19 run 1 ===
+Sort  (cost=3734.06..3734.80 rows=294 width=36) (actual time=46.778..46.785 rows=294.00 loops=1)
+  Sort Key: (COALESCE((count(l.user_id)), '0'::bigint)) DESC
+  Sort Method: quicksort  Memory: 40kB
+  Buffers: shared hit=9400 read=1625
+  ->  Hash Left Join  (cost=3628.11..3722.01 rows=294 width=36) (actual time=46.677..46.749 rows=294.00 loops=1)
+        Hash Cond: (u.user_id = vp.user_id)
+        Buffers: shared hit=9397 read=1625
+        ->  Hash Right Join  (cost=2055.18..2148.31 rows=294 width=28) (actual time=43.529..43.582 rows=294.00 loops=1)
+              Hash Cond: (p.user_id = u.user_id)
+              Buffers: shared hit=8624 read=1625
+              ->  HashAggregate  (cost=2030.82..2071.98 rows=4116 width=12) (actual time=43.494..43.520 rows=247.00 loops=1)
+                    Group Key: p.user_id
+                    Batches: 1  Memory Usage: 169kB
+                    Buffers: shared hit=8620 read=1625
+                    ->  Nested Loop  (cost=24.78..2010.24 rows=4116 width=8) (actual time=0.034..42.245 rows=21832.00 loops=1)
+                          Buffers: shared hit=8620 read=1625
+                          ->  Hash Join  (cost=24.36..1550.88 rows=588 width=8) (actual time=0.029..3.886 rows=3125.00 loops=1)
+                                Hash Cond: (p.user_id = u_1.user_id)
+                                Buffers: shared hit=773
+                                ->  Seq Scan on posts p  (cost=0.00..1369.00 rows=60000 width=8) (actual time=0.003..1.745 rows=60000.00 loops=1)
+                                      Buffers: shared hit=769
+                                ->  Hash  (cost=20.68..20.68 rows=294 width=4) (actual time=0.023..0.023 rows=294.00 loops=1)
+                                      Buckets: 1024  Batches: 1  Memory Usage: 19kB
+                                      Buffers: shared hit=4
+                                      ->  Index Only Scan using idx_users_verified on users u_1  (cost=0.27..20.68 rows=294 width=4) (actual time=0.005..0.013 rows=294.00 loops=1)
+                                            Heap Fetches: 0
+                                            Index Searches: 1
+                                            Buffers: shared hit=4
+                          ->  Index Only Scan using idx_likes_post_id on likes l  (cost=0.42..0.70 rows=8 width=8) (actual time=0.012..0.012 rows=6.99 loops=3125)
+                                Index Cond: (post_id = p.post_id)
+                                Heap Fetches: 0
+                                Index Searches: 3125
+                                Buffers: shared hit=7847 read=1625
+              ->  Hash  (cost=20.68..20.68 rows=294 width=20) (actual time=0.030..0.030 rows=294.00 loops=1)
+                    Buckets: 1024  Batches: 1  Memory Usage: 23kB
+                    Buffers: shared hit=4
+                    ->  Index Only Scan using idx_users_verified on users u  (cost=0.27..20.68 rows=294 width=20) (actual time=0.006..0.015 rows=294.00 loops=1)
+                          Heap Fetches: 0
+                          Index Searches: 1
+                          Buffers: shared hit=4
+        ->  Hash  (cost=1565.58..1565.58 rows=588 width=12) (actual time=3.137..3.137 rows=247.00 loops=1)
+              Buckets: 1024  Batches: 1  Memory Usage: 19kB
+              Buffers: shared hit=773
+              ->  Subquery Scan on vp  (cost=1553.82..1565.58 rows=588 width=12) (actual time=3.104..3.124 rows=247.00 loops=1)
+                    Buffers: shared hit=773
+                    ->  HashAggregate  (cost=1553.82..1559.70 rows=588 width=12) (actual time=3.104..3.115 rows=247.00 loops=1)
+                          Group Key: p_1.user_id
+                          Batches: 1  Memory Usage: 57kB
+                          Buffers: shared hit=773
+                          ->  Hash Join  (cost=24.36..1550.88 rows=588 width=12) (actual time=0.046..2.933 rows=3125.00 loops=1)
+                                Hash Cond: (p_1.user_id = u_2.user_id)
+                                Buffers: shared hit=773
+                                ->  Seq Scan on posts p_1  (cost=0.00..1369.00 rows=60000 width=12) (actual time=0.007..1.227 rows=60000.00 loops=1)
+                                      Buffers: shared hit=769
+                                ->  Hash  (cost=20.68..20.68 rows=294 width=4) (actual time=0.032..0.032 rows=294.00 loops=1)
+                                      Buckets: 1024  Batches: 1  Memory Usage: 19kB
+                                      Buffers: shared hit=4
+                                      ->  Index Only Scan using idx_users_verified on users u_2  (cost=0.27..20.68 rows=294 width=4) (actual time=0.009..0.019 rows=294.00 loops=1)
+                                            Heap Fetches: 0
+                                            Index Searches: 1
+                                            Buffers: shared hit=4
+Planning:
+  Buffers: shared hit=427 read=3
+Planning Time: 1.186 ms
+Execution Time: 46.848 ms
+=== R19 run 2 ===
+Sort  (cost=3734.06..3734.80 rows=294 width=36) (actual time=12.234..12.241 rows=294.00 loops=1)
+  Sort Key: (COALESCE((count(l.user_id)), '0'::bigint)) DESC
+  Sort Method: quicksort  Memory: 40kB
+  Buffers: shared hit=11025
+  ->  Hash Left Join  (cost=3628.11..3722.01 rows=294 width=36) (actual time=12.146..12.209 rows=294.00 loops=1)
+        Hash Cond: (u.user_id = vp.user_id)
+        Buffers: shared hit=11022
+        ->  Hash Right Join  (cost=2055.18..2148.31 rows=294 width=28) (actual time=9.123..9.169 rows=294.00 loops=1)
+              Hash Cond: (p.user_id = u.user_id)
+              Buffers: shared hit=10249
+              ->  HashAggregate  (cost=2030.82..2071.98 rows=4116 width=12) (actual time=9.088..9.111 rows=247.00 loops=1)
+                    Group Key: p.user_id
+                    Batches: 1  Memory Usage: 169kB
+                    Buffers: shared hit=10245
+                    ->  Nested Loop  (cost=24.78..2010.24 rows=4116 width=8) (actual time=0.034..8.008 rows=21832.00 loops=1)
+                          Buffers: shared hit=10245
+                          ->  Hash Join  (cost=24.36..1550.88 rows=588 width=8) (actual time=0.028..3.448 rows=3125.00 loops=1)
+                                Hash Cond: (p.user_id = u_1.user_id)
+                                Buffers: shared hit=773
+                                ->  Seq Scan on posts p  (cost=0.00..1369.00 rows=60000 width=8) (actual time=0.002..1.557 rows=60000.00 loops=1)
+                                      Buffers: shared hit=769
+                                ->  Hash  (cost=20.68..20.68 rows=294 width=4) (actual time=0.023..0.023 rows=294.00 loops=1)
+                                      Buckets: 1024  Batches: 1  Memory Usage: 19kB
+                                      Buffers: shared hit=4
+                                      ->  Index Only Scan using idx_users_verified on users u_1  (cost=0.27..20.68 rows=294 width=4) (actual time=0.005..0.013 rows=294.00 loops=1)
+                                            Heap Fetches: 0
+                                            Index Searches: 1
+                                            Buffers: shared hit=4
+                          ->  Index Only Scan using idx_likes_post_id on likes l  (cost=0.42..0.70 rows=8 width=8) (actual time=0.001..0.001 rows=6.99 loops=3125)
+                                Index Cond: (post_id = p.post_id)
+                                Heap Fetches: 0
+                                Index Searches: 3125
+                                Buffers: shared hit=9472
+              ->  Hash  (cost=20.68..20.68 rows=294 width=20) (actual time=0.031..0.031 rows=294.00 loops=1)
+                    Buckets: 1024  Batches: 1  Memory Usage: 23kB
+                    Buffers: shared hit=4
+                    ->  Index Only Scan using idx_users_verified on users u  (cost=0.27..20.68 rows=294 width=20) (actual time=0.006..0.016 rows=294.00 loops=1)
+                          Heap Fetches: 0
+                          Index Searches: 1
+                          Buffers: shared hit=4
+        ->  Hash  (cost=1565.58..1565.58 rows=588 width=12) (actual time=3.018..3.019 rows=247.00 loops=1)
+              Buckets: 1024  Batches: 1  Memory Usage: 19kB
+              Buffers: shared hit=773
+              ->  Subquery Scan on vp  (cost=1553.82..1565.58 rows=588 width=12) (actual time=2.990..3.008 rows=247.00 loops=1)
+                    Buffers: shared hit=773
+                    ->  HashAggregate  (cost=1553.82..1559.70 rows=588 width=12) (actual time=2.990..3.000 rows=247.00 loops=1)
+                          Group Key: p_1.user_id
+                          Batches: 1  Memory Usage: 57kB
+                          Buffers: shared hit=773
+                          ->  Hash Join  (cost=24.36..1550.88 rows=588 width=12) (actual time=0.027..2.821 rows=3125.00 loops=1)
+                                Hash Cond: (p_1.user_id = u_2.user_id)
+                                Buffers: shared hit=773
+                                ->  Seq Scan on posts p_1  (cost=0.00..1369.00 rows=60000 width=12) (actual time=0.002..1.166 rows=60000.00 loops=1)
+                                      Buffers: shared hit=769
+                                ->  Hash  (cost=20.68..20.68 rows=294 width=4) (actual time=0.022..0.022 rows=294.00 loops=1)
+                                      Buckets: 1024  Batches: 1  Memory Usage: 19kB
+                                      Buffers: shared hit=4
+                                      ->  Index Only Scan using idx_users_verified on users u_2  (cost=0.27..20.68 rows=294 width=4) (actual time=0.004..0.013 rows=294.00 loops=1)
+                                            Heap Fetches: 0
+                                            Index Searches: 1
+                                            Buffers: shared hit=4
+Planning:
+  Buffers: shared hit=430
+Planning Time: 0.843 ms
+Execution Time: 12.306 ms
+=== R19 run 3 ===
+Sort  (cost=3734.06..3734.80 rows=294 width=36) (actual time=12.304..12.311 rows=294.00 loops=1)
+  Sort Key: (COALESCE((count(l.user_id)), '0'::bigint)) DESC
+  Sort Method: quicksort  Memory: 40kB
+  Buffers: shared hit=11025
+  ->  Hash Left Join  (cost=3628.11..3722.01 rows=294 width=36) (actual time=12.211..12.276 rows=294.00 loops=1)
+        Hash Cond: (u.user_id = vp.user_id)
+        Buffers: shared hit=11022
+        ->  Hash Right Join  (cost=2055.18..2148.31 rows=294 width=28) (actual time=8.980..9.028 rows=294.00 loops=1)
+              Hash Cond: (p.user_id = u.user_id)
+              Buffers: shared hit=10249
+              ->  HashAggregate  (cost=2030.82..2071.98 rows=4116 width=12) (actual time=8.948..8.972 rows=247.00 loops=1)
+                    Group Key: p.user_id
+                    Batches: 1  Memory Usage: 169kB
+                    Buffers: shared hit=10245
+                    ->  Nested Loop  (cost=24.78..2010.24 rows=4116 width=8) (actual time=0.032..7.881 rows=21832.00 loops=1)
+                          Buffers: shared hit=10245
+                          ->  Hash Join  (cost=24.36..1550.88 rows=588 width=8) (actual time=0.027..3.391 rows=3125.00 loops=1)
+                                Hash Cond: (p.user_id = u_1.user_id)
+                                Buffers: shared hit=773
+                                ->  Seq Scan on posts p  (cost=0.00..1369.00 rows=60000 width=8) (actual time=0.002..1.543 rows=60000.00 loops=1)
+                                      Buffers: shared hit=769
+                                ->  Hash  (cost=20.68..20.68 rows=294 width=4) (actual time=0.022..0.022 rows=294.00 loops=1)
+                                      Buckets: 1024  Batches: 1  Memory Usage: 19kB
+                                      Buffers: shared hit=4
+                                      ->  Index Only Scan using idx_users_verified on users u_1  (cost=0.27..20.68 rows=294 width=4) (actual time=0.004..0.013 rows=294.00 loops=1)
+                                            Heap Fetches: 0
+                                            Index Searches: 1
+                                            Buffers: shared hit=4
+                          ->  Index Only Scan using idx_likes_post_id on likes l  (cost=0.42..0.70 rows=8 width=8) (actual time=0.001..0.001 rows=6.99 loops=3125)
+                                Index Cond: (post_id = p.post_id)
+                                Heap Fetches: 0
+                                Index Searches: 3125
+                                Buffers: shared hit=9472
+              ->  Hash  (cost=20.68..20.68 rows=294 width=20) (actual time=0.028..0.028 rows=294.00 loops=1)
+                    Buckets: 1024  Batches: 1  Memory Usage: 23kB
+                    Buffers: shared hit=4
+                    ->  Index Only Scan using idx_users_verified on users u  (cost=0.27..20.68 rows=294 width=20) (actual time=0.005..0.014 rows=294.00 loops=1)
+                          Heap Fetches: 0
+                          Index Searches: 1
+                          Buffers: shared hit=4
+        ->  Hash  (cost=1565.58..1565.58 rows=588 width=12) (actual time=3.225..3.225 rows=247.00 loops=1)
+              Buckets: 1024  Batches: 1  Memory Usage: 19kB
+              Buffers: shared hit=773
+              ->  Subquery Scan on vp  (cost=1553.82..1565.58 rows=588 width=12) (actual time=3.193..3.213 rows=247.00 loops=1)
+                    Buffers: shared hit=773
+                    ->  HashAggregate  (cost=1553.82..1559.70 rows=588 width=12) (actual time=3.193..3.204 rows=247.00 loops=1)
+                          Group Key: p_1.user_id
+                          Batches: 1  Memory Usage: 57kB
+                          Buffers: shared hit=773
+                          ->  Hash Join  (cost=24.36..1550.88 rows=588 width=12) (actual time=0.030..3.017 rows=3125.00 loops=1)
+                                Hash Cond: (p_1.user_id = u_2.user_id)
+                                Buffers: shared hit=773
+                                ->  Seq Scan on posts p_1  (cost=0.00..1369.00 rows=60000 width=12) (actual time=0.003..1.212 rows=60000.00 loops=1)
+                                      Buffers: shared hit=769
+                                ->  Hash  (cost=20.68..20.68 rows=294 width=4) (actual time=0.024..0.024 rows=294.00 loops=1)
+                                      Buckets: 1024  Batches: 1  Memory Usage: 19kB
+                                      Buffers: shared hit=4
+                                      ->  Index Only Scan using idx_users_verified on users u_2  (cost=0.27..20.68 rows=294 width=4) (actual time=0.006..0.014 rows=294.00 loops=1)
+                                            Heap Fetches: 0
+                                            Index Searches: 1
+                                            Buffers: shared hit=4
+Planning:
+  Buffers: shared hit=430
+Planning Time: 0.818 ms
+Execution Time: 12.376 ms

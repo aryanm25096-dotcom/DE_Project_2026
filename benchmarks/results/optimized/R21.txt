@@ -1,0 +1,75 @@
+=== R21 run 1 ===
+Nested Loop Anti Join  (cost=1.13..105.34 rows=11 width=4) (actual time=0.230..10.513 rows=81.00 loops=1)
+  Buffers: shared hit=3531 read=79 written=17
+  ->  Index Only Scan using idx_follows_followee_accepted on follows f  (cost=0.42..4.61 rows=11 width=4) (actual time=0.006..0.010 rows=81.00 loops=1)
+        Index Cond: (followee_id = 217)
+        Heap Fetches: 0
+        Index Searches: 1
+        Buffers: shared hit=4
+  ->  Nested Loop  (cost=0.71..9.15 rows=1 width=4) (actual time=0.130..0.130 rows=0.00 loops=81)
+        Buffers: shared hit=3527 read=79 written=17
+        ->  Index Only Scan using idx_likes_user_post on likes l  (cost=0.42..4.67 rows=14 width=8) (actual time=0.112..0.113 rows=13.83 loops=81)
+              Index Cond: (user_id = f.follower_id)
+              Heap Fetches: 0
+              Index Searches: 81
+              Buffers: shared hit=167 read=79 written=17
+        ->  Index Scan using posts_pkey on posts p  (cost=0.29..0.32 rows=1 width=4) (actual time=0.001..0.001 rows=0.00 loops=1120)
+              Index Cond: (post_id = l.post_id)
+              Filter: (user_id = 217)
+              Rows Removed by Filter: 1
+              Index Searches: 1120
+              Buffers: shared hit=3360
+Planning:
+  Buffers: shared hit=368
+Planning Time: 0.670 ms
+Execution Time: 10.531 ms
+=== R21 run 2 ===
+Nested Loop Anti Join  (cost=1.13..105.34 rows=11 width=4) (actual time=0.056..1.353 rows=81.00 loops=1)
+  Buffers: shared hit=3610
+  ->  Index Only Scan using idx_follows_followee_accepted on follows f  (cost=0.42..4.61 rows=11 width=4) (actual time=0.006..0.010 rows=81.00 loops=1)
+        Index Cond: (followee_id = 217)
+        Heap Fetches: 0
+        Index Searches: 1
+        Buffers: shared hit=4
+  ->  Nested Loop  (cost=0.71..9.15 rows=1 width=4) (actual time=0.016..0.016 rows=0.00 loops=81)
+        Buffers: shared hit=3606
+        ->  Index Only Scan using idx_likes_user_post on likes l  (cost=0.42..4.67 rows=14 width=8) (actual time=0.002..0.002 rows=13.83 loops=81)
+              Index Cond: (user_id = f.follower_id)
+              Heap Fetches: 0
+              Index Searches: 81
+              Buffers: shared hit=246
+        ->  Index Scan using posts_pkey on posts p  (cost=0.29..0.32 rows=1 width=4) (actual time=0.001..0.001 rows=0.00 loops=1120)
+              Index Cond: (post_id = l.post_id)
+              Filter: (user_id = 217)
+              Rows Removed by Filter: 1
+              Index Searches: 1120
+              Buffers: shared hit=3360
+Planning:
+  Buffers: shared hit=368
+Planning Time: 0.724 ms
+Execution Time: 1.370 ms
+=== R21 run 3 ===
+Nested Loop Anti Join  (cost=1.13..105.34 rows=11 width=4) (actual time=0.049..1.416 rows=81.00 loops=1)
+  Buffers: shared hit=3610
+  ->  Index Only Scan using idx_follows_followee_accepted on follows f  (cost=0.42..4.61 rows=11 width=4) (actual time=0.005..0.010 rows=81.00 loops=1)
+        Index Cond: (followee_id = 217)
+        Heap Fetches: 0
+        Index Searches: 1
+        Buffers: shared hit=4
+  ->  Nested Loop  (cost=0.71..9.15 rows=1 width=4) (actual time=0.017..0.017 rows=0.00 loops=81)
+        Buffers: shared hit=3606
+        ->  Index Only Scan using idx_likes_user_post on likes l  (cost=0.42..4.67 rows=14 width=8) (actual time=0.002..0.002 rows=13.83 loops=81)
+              Index Cond: (user_id = f.follower_id)
+              Heap Fetches: 0
+              Index Searches: 81
+              Buffers: shared hit=246
+        ->  Index Scan using posts_pkey on posts p  (cost=0.29..0.32 rows=1 width=4) (actual time=0.001..0.001 rows=0.00 loops=1120)
+              Index Cond: (post_id = l.post_id)
+              Filter: (user_id = 217)
+              Rows Removed by Filter: 1
+              Index Searches: 1120
+              Buffers: shared hit=3360
+Planning:
+  Buffers: shared hit=368
+Planning Time: 0.710 ms
+Execution Time: 1.433 ms

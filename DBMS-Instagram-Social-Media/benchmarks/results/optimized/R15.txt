@@ -1,0 +1,102 @@
+=== R15 run 1 ===
+Sort  (cost=6520.26..6529.05 rows=3515 width=32) (actual time=18.152..18.155 rows=136.00 loops=1)
+  Sort Key: u.user_id
+  Sort Method: quicksort  Memory: 32kB
+  Buffers: shared hit=9861 read=656
+  ->  HashAggregate  (cost=6269.07..6313.24 rows=3515 width=32) (actual time=18.025..18.135 rows=136.00 loops=1)
+        Group Key: u.username
+        Filter: (u.followers_count <> count(f.follower_id))
+        Batches: 1  Memory Usage: 345kB
+        Rows Removed by Filter: 3135
+        Buffers: shared hit=9858 read=656
+        ->  Nested Loop Left Join  (cost=80.56..6121.61 rows=29492 width=28) (actual time=0.501..13.717 rows=75254.00 loops=1)
+              Buffers: shared hit=9858 read=656
+              ->  Bitmap Heap Scan on users u  (cost=80.14..610.71 rows=3533 width=24) (actual time=0.393..0.956 rows=3271.00 loops=1)
+                    Recheck Cond: (is_verified OR ((account_type)::text = 'CREATOR'::text))
+                    Heap Blocks: exact=484
+                    Buffers: shared hit=494 read=3
+                    ->  BitmapOr  (cost=80.14..80.14 rows=3565 width=0) (actual time=0.367..0.367 rows=0.00 loops=1)
+                          Buffers: shared hit=10 read=3
+                          ->  Bitmap Index Scan on idx_users_verified  (cost=0.00..17.74 rows=294 width=0) (actual time=0.305..0.305 rows=294.00 loops=1)
+                                Index Searches: 1
+                                Buffers: shared read=3
+                          ->  Bitmap Index Scan on idx_users_creators  (cost=0.00..60.63 rows=3271 width=0) (actual time=0.061..0.061 rows=3271.00 loops=1)
+                                Index Searches: 1
+                                Buffers: shared hit=10
+              ->  Index Only Scan using idx_follows_followee_accepted on follows f  (cost=0.42..1.43 rows=13 width=8) (actual time=0.002..0.003 rows=22.99 loops=3271)
+                    Index Cond: (followee_id = u.user_id)
+                    Heap Fetches: 0
+                    Index Searches: 3271
+                    Buffers: shared hit=9364 read=653
+Planning:
+  Buffers: shared hit=303
+Planning Time: 0.537 ms
+Execution Time: 18.188 ms
+=== R15 run 2 ===
+Sort  (cost=6520.26..6529.05 rows=3515 width=32) (actual time=11.825..11.828 rows=136.00 loops=1)
+  Sort Key: u.user_id
+  Sort Method: quicksort  Memory: 32kB
+  Buffers: shared hit=10517
+  ->  HashAggregate  (cost=6269.07..6313.24 rows=3515 width=32) (actual time=11.716..11.809 rows=136.00 loops=1)
+        Group Key: u.username
+        Filter: (u.followers_count <> count(f.follower_id))
+        Batches: 1  Memory Usage: 345kB
+        Rows Removed by Filter: 3135
+        Buffers: shared hit=10514
+        ->  Nested Loop Left Join  (cost=80.56..6121.61 rows=29492 width=28) (actual time=0.124..7.557 rows=75254.00 loops=1)
+              Buffers: shared hit=10514
+              ->  Bitmap Heap Scan on users u  (cost=80.14..610.71 rows=3533 width=24) (actual time=0.099..0.571 rows=3271.00 loops=1)
+                    Recheck Cond: (is_verified OR ((account_type)::text = 'CREATOR'::text))
+                    Heap Blocks: exact=484
+                    Buffers: shared hit=497
+                    ->  BitmapOr  (cost=80.14..80.14 rows=3565 width=0) (actual time=0.071..0.072 rows=0.00 loops=1)
+                          Buffers: shared hit=13
+                          ->  Bitmap Index Scan on idx_users_verified  (cost=0.00..17.74 rows=294 width=0) (actual time=0.011..0.011 rows=294.00 loops=1)
+                                Index Searches: 1
+                                Buffers: shared hit=3
+                          ->  Bitmap Index Scan on idx_users_creators  (cost=0.00..60.63 rows=3271 width=0) (actual time=0.061..0.061 rows=3271.00 loops=1)
+                                Index Searches: 1
+                                Buffers: shared hit=10
+              ->  Index Only Scan using idx_follows_followee_accepted on follows f  (cost=0.42..1.43 rows=13 width=8) (actual time=0.001..0.001 rows=22.99 loops=3271)
+                    Index Cond: (followee_id = u.user_id)
+                    Heap Fetches: 0
+                    Index Searches: 3271
+                    Buffers: shared hit=10017
+Planning:
+  Buffers: shared hit=303
+Planning Time: 0.524 ms
+Execution Time: 11.860 ms
+=== R15 run 3 ===
+Sort  (cost=6520.26..6529.05 rows=3515 width=32) (actual time=11.650..11.653 rows=136.00 loops=1)
+  Sort Key: u.user_id
+  Sort Method: quicksort  Memory: 32kB
+  Buffers: shared hit=10517
+  ->  HashAggregate  (cost=6269.07..6313.24 rows=3515 width=32) (actual time=11.535..11.634 rows=136.00 loops=1)
+        Group Key: u.username
+        Filter: (u.followers_count <> count(f.follower_id))
+        Batches: 1  Memory Usage: 345kB
+        Rows Removed by Filter: 3135
+        Buffers: shared hit=10514
+        ->  Nested Loop Left Join  (cost=80.56..6121.61 rows=29492 width=28) (actual time=0.123..7.474 rows=75254.00 loops=1)
+              Buffers: shared hit=10514
+              ->  Bitmap Heap Scan on users u  (cost=80.14..610.71 rows=3533 width=24) (actual time=0.098..0.570 rows=3271.00 loops=1)
+                    Recheck Cond: (is_verified OR ((account_type)::text = 'CREATOR'::text))
+                    Heap Blocks: exact=484
+                    Buffers: shared hit=497
+                    ->  BitmapOr  (cost=80.14..80.14 rows=3565 width=0) (actual time=0.071..0.071 rows=0.00 loops=1)
+                          Buffers: shared hit=13
+                          ->  Bitmap Index Scan on idx_users_verified  (cost=0.00..17.74 rows=294 width=0) (actual time=0.010..0.010 rows=294.00 loops=1)
+                                Index Searches: 1
+                                Buffers: shared hit=3
+                          ->  Bitmap Index Scan on idx_users_creators  (cost=0.00..60.63 rows=3271 width=0) (actual time=0.060..0.060 rows=3271.00 loops=1)
+                                Index Searches: 1
+                                Buffers: shared hit=10
+              ->  Index Only Scan using idx_follows_followee_accepted on follows f  (cost=0.42..1.43 rows=13 width=8) (actual time=0.001..0.001 rows=22.99 loops=3271)
+                    Index Cond: (followee_id = u.user_id)
+                    Heap Fetches: 0
+                    Index Searches: 3271
+                    Buffers: shared hit=10017
+Planning:
+  Buffers: shared hit=303
+Planning Time: 0.528 ms
+Execution Time: 11.686 ms

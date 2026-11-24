@@ -1,0 +1,33 @@
+=== R22 run 1 ===
+Limit  (cost=70.30..71.47 rows=25 width=36) (actual time=1.250..1.253 rows=25.00 loops=1)
+  Buffers: shared hit=1 read=12 written=5
+  ->  Index Only Scan using idx_comments_hidden_created on comments  (cost=0.28..141.73 rows=3030 width=36) (actual time=0.356..1.226 rows=1525.00 loops=1)
+        Heap Fetches: 0
+        Index Searches: 1
+        Buffers: shared hit=1 read=12 written=5
+Planning:
+  Buffers: shared hit=170
+Planning Time: 0.259 ms
+Execution Time: 1.262 ms
+=== R22 run 2 ===
+Limit  (cost=70.30..71.47 rows=25 width=36) (actual time=0.140..0.141 rows=25.00 loops=1)
+  Buffers: shared hit=13
+  ->  Index Only Scan using idx_comments_hidden_created on comments  (cost=0.28..141.73 rows=3030 width=36) (actual time=0.033..0.112 rows=1525.00 loops=1)
+        Heap Fetches: 0
+        Index Searches: 1
+        Buffers: shared hit=13
+Planning:
+  Buffers: shared hit=170
+Planning Time: 0.289 ms
+Execution Time: 0.150 ms
+=== R22 run 3 ===
+Limit  (cost=70.30..71.47 rows=25 width=36) (actual time=0.139..0.141 rows=25.00 loops=1)
+  Buffers: shared hit=13
+  ->  Index Only Scan using idx_comments_hidden_created on comments  (cost=0.28..141.73 rows=3030 width=36) (actual time=0.038..0.114 rows=1525.00 loops=1)
+        Heap Fetches: 0
+        Index Searches: 1
+        Buffers: shared hit=13
+Planning:
+  Buffers: shared hit=170
+Planning Time: 0.298 ms
+Execution Time: 0.150 ms

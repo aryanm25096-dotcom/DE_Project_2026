@@ -1,0 +1,60 @@
+=== R18 run 1 ===
+GroupAggregate  (cost=1130.92..1207.35 rows=3397 width=18) (actual time=0.581..0.748 rows=120.00 loops=1)
+  Group Key: ((created_at)::date), post_type
+  Buffers: shared hit=68
+  ->  Sort  (cost=1130.92..1139.41 rows=3397 width=10) (actual time=0.577..0.632 rows=3296.00 loops=1)
+        Sort Key: ((created_at)::date), post_type
+        Sort Method: quicksort  Memory: 200kB
+        Buffers: shared hit=68
+        ->  Bitmap Heap Scan on posts  (cost=103.23..931.68 rows=3397 width=10) (actual time=0.059..0.334 rows=3296.00 loops=1)
+              Recheck Cond: ((created_at >= '2026-06-01 00:00:00+05:30'::timestamp with time zone) AND (created_at < '2026-07-01 00:00:00+05:30'::timestamp with time zone))
+              Heap Blocks: exact=43
+              Buffers: shared hit=62
+              ->  Bitmap Index Scan on idx_posts_created_likes  (cost=0.00..102.39 rows=3397 width=0) (actual time=0.050..0.050 rows=3296.00 loops=1)
+                    Index Cond: ((created_at >= '2026-06-01 00:00:00+05:30'::timestamp with time zone) AND (created_at < '2026-07-01 00:00:00+05:30'::timestamp with time zone))
+                    Index Searches: 1
+                    Buffers: shared hit=19
+Planning:
+  Buffers: shared hit=207
+Planning Time: 0.308 ms
+Execution Time: 0.776 ms
+=== R18 run 2 ===
+GroupAggregate  (cost=1130.92..1207.35 rows=3397 width=18) (actual time=0.571..0.723 rows=120.00 loops=1)
+  Group Key: ((created_at)::date), post_type
+  Buffers: shared hit=68
+  ->  Sort  (cost=1130.92..1139.41 rows=3397 width=10) (actual time=0.568..0.623 rows=3296.00 loops=1)
+        Sort Key: ((created_at)::date), post_type
+        Sort Method: quicksort  Memory: 200kB
+        Buffers: shared hit=68
+        ->  Bitmap Heap Scan on posts  (cost=103.23..931.68 rows=3397 width=10) (actual time=0.057..0.329 rows=3296.00 loops=1)
+              Recheck Cond: ((created_at >= '2026-06-01 00:00:00+05:30'::timestamp with time zone) AND (created_at < '2026-07-01 00:00:00+05:30'::timestamp with time zone))
+              Heap Blocks: exact=43
+              Buffers: shared hit=62
+              ->  Bitmap Index Scan on idx_posts_created_likes  (cost=0.00..102.39 rows=3397 width=0) (actual time=0.049..0.049 rows=3296.00 loops=1)
+                    Index Cond: ((created_at >= '2026-06-01 00:00:00+05:30'::timestamp with time zone) AND (created_at < '2026-07-01 00:00:00+05:30'::timestamp with time zone))
+                    Index Searches: 1
+                    Buffers: shared hit=19
+Planning:
+  Buffers: shared hit=207
+Planning Time: 0.295 ms
+Execution Time: 0.750 ms
+=== R18 run 3 ===
+GroupAggregate  (cost=1130.92..1207.35 rows=3397 width=18) (actual time=0.627..0.804 rows=120.00 loops=1)
+  Group Key: ((created_at)::date), post_type
+  Buffers: shared hit=68
+  ->  Sort  (cost=1130.92..1139.41 rows=3397 width=10) (actual time=0.623..0.688 rows=3296.00 loops=1)
+        Sort Key: ((created_at)::date), post_type
+        Sort Method: quicksort  Memory: 200kB
+        Buffers: shared hit=68
+        ->  Bitmap Heap Scan on posts  (cost=103.23..931.68 rows=3397 width=10) (actual time=0.083..0.366 rows=3296.00 loops=1)
+              Recheck Cond: ((created_at >= '2026-06-01 00:00:00+05:30'::timestamp with time zone) AND (created_at < '2026-07-01 00:00:00+05:30'::timestamp with time zone))
+              Heap Blocks: exact=43
+              Buffers: shared hit=62
+              ->  Bitmap Index Scan on idx_posts_created_likes  (cost=0.00..102.39 rows=3397 width=0) (actual time=0.074..0.074 rows=3296.00 loops=1)
+                    Index Cond: ((created_at >= '2026-06-01 00:00:00+05:30'::timestamp with time zone) AND (created_at < '2026-07-01 00:00:00+05:30'::timestamp with time zone))
+                    Index Searches: 1
+                    Buffers: shared hit=19
+Planning:
+  Buffers: shared hit=207
+Planning Time: 0.289 ms
+Execution Time: 0.835 ms
